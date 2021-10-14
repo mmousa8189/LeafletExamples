@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using LeafletExamples.Web.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -28,12 +29,12 @@ namespace LeafletExamples.Web.Pages
 
         public JsonResult OnGetGeojsonFile()
         {
-            var data  = new GeojsonTypeRootobject();
-            string path = Path.Combine(_environment.WebRootPath, "App_Data", "egypt_administrative.geojson");
+            var data  = new EgyptStanfordGeojson();
+            string path = Path.Combine(_environment.WebRootPath, "App_Data", "stanford-egypt-geojson.json");
 
             using (StreamReader sr = new(path))
             {
-                data = JsonConvert.DeserializeObject<GeojsonTypeRootobject>(sr.ReadToEnd());
+                data = JsonConvert.DeserializeObject<EgyptStanfordGeojson>(sr.ReadToEnd());
             }
             return new JsonResult(data);
         }
